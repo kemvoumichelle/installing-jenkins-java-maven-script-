@@ -1,7 +1,7 @@
 #!/bin/bash
 #Maintainer Eric Kemvou 
-
-echo 'this script will perform the following tasks:'
+#this script can only run of debain base OS
+echo 'this script will take about 5 min to run and perform the following tasks:'
 echo  $'\e[1;33m'Jenkins$'\e[0m'
 echo  $'\e[1;33m'start jenkins daemon$'\e[0m'
 echo  $'\e[1;33m'Java $'\e[0m'
@@ -9,24 +9,38 @@ echo  $'\e[1;33m'Maven$'\e[0m'
 echo  $'\e[1;33m'Set JAVA home$'\e[0m'
 echo  $'\e[1;33m'set Maven home$'\e[0m'
 echo  $'\e[1;33m'display Java and Maven home at the end of the script$'\e[0m'
-
+echo
+sleep 3
+ID=$(id -u)
+if 
+[[ $ID -eq 0 ]]
+then
+echo
+echo you are Root and therefore let us gather some facts 
+else
+echo you are not Root please loging as a root user
+exit 1
+fi
+echo
+echo ‘PLEASE be patient with this script it will take about 5mn to unpack all required packages’
+echo
+echo
+echo  $'\e[1;33m' When prompted please Press ENTER in your keyboard to unpack Java$'\e[0m'
+echo
+echo
 sleep 2
-sudo apt install -y unzip wget
-#Install JAVA
 
-echo 
-echo  $'\e[1;33m'press enter in your keyboard to unpack Java$'\e[0m'
 sudo add-apt-repository ppa:openjdk-r/ppa
-sudo apt-get update -y
-sudo apt-get install -y openjdk-11-jdk
+sudo apt-get update
+sudo apt install unzip -y
+sudo apt-get install -y openjdk-8-jdk
 
-#echo  $'\e[1;33m'press enter in your keyboard to unpack Java$'\e[0m'
 #Install Jenkins
 
 #wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
 wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
 echo deb https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list
-sudo apt-get update -y
+sudo apt-get update
 sudo apt-get install -y jenkins
 sudo systemctl start jenkins
 
@@ -39,7 +53,14 @@ cd /tmp ; tar -xzf apache-maven-3.6.3-bin.tar.gz -C /opt
 
 #Install SonarQube-runner ( on Jenkins machine )
 
-#cd /tmp ; wget http://repo2.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.4/sonar-runner-dist-2.4.zip
+#cd /tmp ; wget 
+
+echo
+echo
+echo  $'\e[1;33m' If any question about SONAR-RUNNER-2 appear it means you have it installed  already just enter yes couple of  time on your keyboard until the script stop asking that question  $'\e[0m'
+echo 
+sleep 3
+http://repo2.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.4/sonar-runner-dist-2.4.zip
 cd /tmp ; wget https://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.4/sonar-runner-dist-2.4.zip
 cd /tmp ; unzip sonar-runner-dist-2.4.zip
 cd /tmp ; mv sonar-runner-2.4 /opt
@@ -53,16 +74,28 @@ echo "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> /etc/profile
 echo "PATH=\$JAVA_HOME/bin:\$MAVEN_HOME/bin:\$PATH" >> /etc/profile
 source /etc/profile  ## to reload the configuration
 
-sleep 3
+echo
+echo
+
 
 echo 'here is your maven and java environment location'
-echo $MAVEN_HOME
-sleep 2
-echo "$JAVA_HOME"
+echo                  $'\e[1;33m'$MAVEN_HOME $'\e[0m'
+
 echo
-echo $'\e[1;33m'$MEM_FREE$'\e[0m'
-echo Powered by $'\e[1;33m'Email: kemvoupatterson@gmail.com Tel: 832-342-0700$'\e[0m'
-echo 'thank you for using this script'
+sleep 2
+echo                  $'\e[1;33m'$JAVA_HOME $'\e[0m'
+
+echo
+echo Now that this was successful go to jenkins set maven and java home using information above
+
+echo
+echo
+echo Written by Email: $'\e[1;33m'kemvoupatterson@gmail.com Tel: 832-342-0700$'\e[0m'
+echo
+
+echo Thank you for using this script email me for any question comment or concern
 
 
 exit
+
+
