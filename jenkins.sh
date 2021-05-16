@@ -1,5 +1,5 @@
 #!/bin/bash
-#Maintainer Eric Kemvou 
+#Maintainer name 
 #this script can only run of debain base OS
 echo 'this script will take about 5 min to run and perform the following tasks:'
 echo  $'\e[1;33m'Jenkins$'\e[0m'
