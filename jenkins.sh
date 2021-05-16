@@ -90,7 +90,7 @@ echo Now that this was successful go to jenkins set maven and java home using in
 
 echo
 echo
-echo Written by Email: $'\e[1;33m'kemvoupatterson@gmail.com Tel: 832-342-0700$'\e[0m'
+echo Written by Email: $'\e[1;33m'test@gmail.com Tel: 832-342-4000$'\e[0m'
 echo
 
 echo Thank you for using this script email me for any question comment or concern
